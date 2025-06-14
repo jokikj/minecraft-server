@@ -41,17 +41,19 @@ wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7
 echo -e "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\n#$(date -u)\neula=true" > eula.txt
 
 # Modifier server-port
-sed -i "s/^server-port=.*/server-port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+# sed -i "s/^server-port=.*/server-port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
 
 # Modifier query.port
-sed -i "s/^query.port=.*/query.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+# sed -i "s/^query.port=.*/query.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
 
 # Modifier rcon.port
-sed -i "s/^rcon.port=.*/rcon.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+# sed -i "s/^rcon.port=.*/rcon.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
 
 # Lancer le serveur dans un screen détaché
 screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
+
 EOF
+
 # Obtenir l'IP locale IPv4 uniquement
 IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
 
