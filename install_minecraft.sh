@@ -49,12 +49,9 @@ sed -i "s/^query.port=.*/query.port=${PORT}/" /home/mcadmin/minecraftserver/serv
 # Modifier rcon.port
 sed -i "s/^rcon.port=.*/rcon.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
 
-EOF
-
 # Lancer le serveur dans un screen détaché
 screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
-
 # Obtenir l'IP locale IPv4 uniquement
 IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
 
