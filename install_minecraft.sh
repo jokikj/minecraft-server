@@ -2,6 +2,10 @@
 
 # Script d'installation du serveur Minecraft
 
+# Définir les variables
+CONFIG_DIR="/home/mcadmin/minecraftserver"
+PORT="25565"
+
 # Mettre à jour les paquets
 sudo apt update -y && sudo apt upgrade -y
 
@@ -9,11 +13,10 @@ sudo apt update -y && sudo apt upgrade -y
 sudo apt-get install openjdk-21-jre-headless screen -y
 
 # Ouvrir le port 25565 avec UFW et iptables
-sudo ufw allow 25565
-sudo iptables -I INPUT -p tcp --dport 25565 -j ACCEPT
+sudo ufw allow ${PORT}
+sudo iptables -I INPUT -p tcp --dport ${PORT} -j ACCEPT
 
 # Créer utilisateur
-
 # Vérifier si l'utilisateur mcadmin existe déjà
 
 if id "mcadmin" &>/dev/null; then
@@ -25,8 +28,8 @@ else
 fi
 
 # Créer le dossier du serveur Minecraft
-sudo mkdir -p /home/mcadmin/minecraftserver
-sudo chown mcadmin:mcadmin /home/mcadmin/minecraftserver
+sudo mkdir -p ${CONFIG_DIR}
+sudo chown mcadmin:mcadmin ${CONFIG_DIR}
 
 # Télécharger le serveur Minecraft avec l'utilisateur mcadmin
 sudo -u mcadmin bash << EOF
@@ -40,12 +43,19 @@ echo -e "#By changing the setting below to TRUE you are indicating your agreemen
 screen -dmS mc java -Xmx1024M -Xms1024M -jar server.jar nogui
 EOF
 
-# Afficher les instructions
-echo -e "\033[0mLe serveur Minecraft est installé et en cours d'exécution."
-echo -e "Adresse IP Privé : \033[1;32m$(hostname -I | awk '{print $1}'):25565\033[0m"
-echo -e "Informations serveur :"
-echo -e "- Pour accéder au fichier de configuration : \033[1;32m/home/mcadmin/minecraftserver/server.properties\033[0m"
-echo -e "- Pour accéder à la console du serveur : \033[1;32msudo -u mcadmin screen -r mc\033[0m"
-echo -e "- Pour détacher la console : \033[1;32mCtrl + A, D\033[0m"
-echo -e "- Pour arrêter le serveur : \033[1;32m/stop\033[0m"
-echo -e "- Pour quitter la console : \033[1;32mCtrl + D\033[0m"
+# Obtenir l'IP locale IPv4 uniquement
+IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
+
+# Obtenir l'IP publique IPv4 uniquement
+IP_PUBLIQUE=$(curl -4 -s https://api64.ipify.org)
+
+# Afficher les informations
+echo -e "\033[1;34mLe serveur Minecraft est installé et en cours d'exécution.\033[0m"
+echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${PORT}\033[0m"
+echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${PORT}\033[0m"
+echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m${CONFIG_DIR}\033[0m"
+echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
+echo -e "\033[1;33m  sudo -u mcadmin screen -r mc\033[0m"
+echo -e "\033[1;33m  Ctrl + A, D (pour détacher la console)\033[0m"
+echo -e "\033[1;33m  stop (pour arrêter le serveur)\033[0m"
+echo -e "\033[1;33m  Ctrl + D (pour quitter la console)\033[0m"
