@@ -57,5 +57,5 @@ echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m${
 echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
 echo -e "\033[1;33m  sudo -u mcadmin screen -r mc\033[0m"
 echo -e "\033[1;33m  Ctrl + A, D (pour détacher la console)\033[0m"
-echo -e "\033[1;33m  stop (pour arrêter le serveur)\033[0m"
+echo -e "\033[1;33m  /stop (pour arrêter le serveur)\033[0m"
 echo -e "\033[1;33m  Ctrl + D (pour quitter la console)\033[0m"
