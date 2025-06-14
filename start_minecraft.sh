@@ -2,7 +2,7 @@
 
 # Définir les variables
 CONFIG_DIR="/home/mcadmin/minecraftserver"
-PORT="25565"
+PORT="25565" #Default 25565
 RAM="8G" #Default 1024M
 
 
