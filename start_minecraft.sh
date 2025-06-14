@@ -3,13 +3,14 @@
 # Définir les variables
 CONFIG_DIR="/home/mcadmin/minecraftserver"
 PORT="25565"
+RAM="8G"
 
 # Lancer le serveur Minecraft avec l'utilisateur mcadmin dans un screen détaché
 sudo -u mcadmin bash << EOF
 cd /home/mcadmin/minecraftserver
 
 # Lancer dans un screen nommé 'mc' pour lancer le serveur Minecraft
-screen -dmS mc java -Xmx1024M -Xms1024M -jar server.jar nogui
+screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
 
 # Obtenir l'IP locale IPv4 uniquement
