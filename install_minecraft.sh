@@ -2,11 +2,6 @@
 
 # Script d'installation du serveur Minecraft
 
-# Définir les variables
-CONFIG_DIR="/home/mcadmin/minecraftserver"
-PORT="25565" #Default 25565
-RAM="8G" #Default 1024M
-
 # Mettre à jour les paquets
 sudo apt update -y && sudo apt upgrade -y
 
@@ -14,10 +9,11 @@ sudo apt update -y && sudo apt upgrade -y
 sudo apt-get install openjdk-21-jre-headless screen -y
 
 # Ouvrir le port 25565 avec UFW et iptables
-sudo ufw allow ${PORT}
-sudo iptables -I INPUT -p tcp --dport ${PORT} -j ACCEPT
+sudo ufw allow 25565
+sudo iptables -I INPUT -p tcp --dport 25565 -j ACCEPT
 
 # Créer utilisateur
+
 # Vérifier si l'utilisateur mcadmin existe déjà
 
 if id "mcadmin" &>/dev/null; then
@@ -29,8 +25,8 @@ else
 fi
 
 # Créer le dossier du serveur Minecraft
-sudo mkdir -p ${CONFIG_DIR}
-sudo chown mcadmin:mcadmin ${CONFIG_DIR}
+sudo mkdir -p /home/mcadmin/minecraftserver
+sudo chown mcadmin:mcadmin /home/mcadmin/minecraftserver
 
 # Télécharger le serveur Minecraft avec l'utilisateur mcadmin
 sudo -u mcadmin bash << EOF
@@ -40,18 +36,8 @@ wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7
 # Accepter l'EULA
 echo -e "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\n#$(date -u)\neula=true" > eula.txt
 
-# Modifier server-port
-# sed -i "s/^server-port=.*/server-port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
-
-# Modifier query.port
-# sed -i "s/^query.port=.*/query.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
-
-# Modifier rcon.port
-# sed -i "s/^rcon.port=.*/rcon.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
-
 # Lancer le serveur dans un screen détaché
-screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
-
+screen -dmS mc java -Xmx1024M -Xms1024M -jar server.jar nogui
 EOF
 
 # Obtenir l'IP locale IPv4 uniquement
