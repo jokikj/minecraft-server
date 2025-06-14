@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -f .env ]; then
+    export $(grep -v '^#' .env | xargs)
+else
+    echo ".env file not found!"
+    exit 1
+fi
+
 # Lancer le serveur Minecraft avec l'utilisateur mcadmin dans un screen détaché
 sudo -u mcadmin bash << EOF
 cd /home/mcadmin/minecraftserver
@@ -18,7 +25,7 @@ IP_PUBLIQUE=$(curl -4 -s https://api64.ipify.org)
 echo -e "\033[1;34mLe serveur Minecraft est installé et en cours d'exécution.\033[0m"
 echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${PORT}\033[0m"
 echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${PORT}\033[0m"
-echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m${CONFIG_DIR}\033[0m"
+echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/mcadmin/minecraftserver\033[0m"
 echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
 echo -e "\033[1;33m  sudo -u mcadmin screen -r mc (pour rentrer dans la console du serveur minecraft)\033[0m"
 echo -e "\033[1;33m  Ctrl + A, D (pour détacher la console)\033[0m"
