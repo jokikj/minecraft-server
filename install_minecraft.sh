@@ -43,11 +43,9 @@ EOF
 # Afficher les instructions
 echo -e "\033[0mLe serveur Minecraft est installé et en cours d'exécution."
 echo -e "Adresse IP Privé : \033[1;32m$(hostname -I | awk '{print $1}'):25565\033[0m"
-echo -e "Commandes pour gérer le serveur :"
+echo -e "Informations serveur :"
+echo -e "- Pour accéder au fichier de configuration : \033[1;32m/home/mcadmin/minecraftserver/server.properties\033[0m"
 echo -e "- Pour accéder à la console du serveur : \033[1;32msudo -u mcadmin screen -r mc\033[0m"
 echo -e "- Pour détacher la console : \033[1;32mCtrl + A, D\033[0m"
 echo -e "- Pour arrêter le serveur : \033[1;32m/stop\033[0m"
 echo -e "- Pour quitter la console : \033[1;32mCtrl + D\033[0m"
-echo -e "Pour plus d'informations, consultez la documentation officielle de Minecraft."
-
-
