@@ -4,8 +4,8 @@
 
 # Définir les variables
 CONFIG_DIR="/home/mcadmin/minecraftserver"
-PORT="25565"
-RAM="8G"
+PORT="25565" #Default 25565
+RAM="8G" #Default 1024M
 
 # Mettre à jour les paquets
 sudo apt update -y && sudo apt upgrade -y
