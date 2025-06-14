@@ -44,7 +44,7 @@ wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7
 echo -e "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\n#$(date -u)\neula=true" > eula.txt
 
 # Lancer le serveur dans un screen détaché
-screen -dmS mc java -Xmx1024M -Xms1024M -jar server.jar nogui
+screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
 
 # Obtenir l'IP locale IPv4 uniquement
