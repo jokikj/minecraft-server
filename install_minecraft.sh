@@ -5,6 +5,7 @@
 # Définir les variables
 CONFIG_DIR="/home/mcadmin/minecraftserver"
 PORT="25565"
+RAM="8G"
 
 # Mettre à jour les paquets
 sudo apt update -y && sudo apt upgrade -y
@@ -39,8 +40,19 @@ wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7
 # Accepter l'EULA
 echo -e "#By changing the setting below to TRUE you are indicating your agreement to our EULA (https://aka.ms/MinecraftEULA).\n#$(date -u)\neula=true" > eula.txt
 
+# Modifier server-port
+sed -i "s/^server-port=.*/server-port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+
+# Modifier query.port
+sed -i "s/^query.port=.*/query.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+
+# Modifier rcon.port
+sed -i "s/^rcon.port=.*/rcon.port=${PORT}/" /home/mcadmin/minecraftserver/server.properties
+
+EOF
+
 # Lancer le serveur dans un screen détaché
-screen -dmS mc java -Xmx1024M -Xms1024M -jar server.jar nogui
+screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
 
 # Obtenir l'IP locale IPv4 uniquement
