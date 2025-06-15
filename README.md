@@ -106,19 +106,7 @@ All configuration files and world data are stored in:
 
 ## 📎 Useful links
 
-- [Minecraft EULA](https://aka.ms/MinecraftEULA)
 - [Official server download](https://www.minecraft.net/en-us/download/server)
 
 ---
 
-## 📝 Complete example of `.env` file
-
-```
-USER=mcadmin
-PORT=25565
-RAM=2G
-```
-➡ Change the port if needed (⚠ avoid ports below 1024 unless using root privileges).  
-➡ Adjust the RAM based on your machine’s capacity.
-
----
