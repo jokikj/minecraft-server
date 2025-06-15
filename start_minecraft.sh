@@ -14,6 +14,11 @@ SERVER_PROPERTIES="/home/${USER}/minecraftserver/server.properties"
 # Read the current port from the config file
 CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
 
+# Check if port is below 1024
+if [ "$PORT" -lt 1024 ]; then
+    echo -e "\033[1;31mWARNING: The selected port $PORT is below 1024. This may prevent the server from starting!\033[0m"
+fi
+
 if [[ "$CONFIG_PORT" != "$PORT" ]]; then
   echo -e "\033[1;33mCurrent port is $CONFIG_PORT, updating port...\033[0m"
 
