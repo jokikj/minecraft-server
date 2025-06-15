@@ -38,7 +38,7 @@ sudo -u ${USER} bash << EOF
 cd /home/${USER}/minecraftserver
 
 # Suprimer le fichier server.jar sans avoir d'erreur si il existe déjà
-rf -f server.jar
+rm -f server.jar
 
 # Téléchargement du serveur Minecraft
 wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar
@@ -88,8 +88,6 @@ cd /home/${USER}/minecraftserver
 # Lancer dans un screen nommé 'mc' pour lancer le serveur Minecraft
 screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
-else
-  echo -e "\033[1;34mLe port est déjà $CONFIG_PORT, aucune modification nécessaire.\033[0m"
 fi
 
 CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
