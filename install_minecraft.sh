@@ -52,15 +52,8 @@ EOF
 
 echo -e "\033[1;34mLe serveur Minecraft est installé!\033[0m"
 
-# Obtenir l'IP locale IPv4 uniquement
-IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
-
-# Obtenir l'IP publique IPv4 uniquement
-IP_PUBLIQUE=$(curl -4 -s https://api64.ipify.org)
-
 # Afficher les informations
 echo -e "\033[1;34mLancement en cours du serveur veuillez patienter...\033[0m"
-
 sleep 20
 
 # Chemin vers server.properties
@@ -90,6 +83,11 @@ screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
 fi
 
+# Obtenir l'IP locale IPv4 uniquement
+IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
+# Obtenir l'IP publique IPv4 uniquement
+IP_PUBLIQUE=$(curl -4 -s https://api64.ipify.org)
+# Obtenir le port utilisé
 CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
 
 echo -e "\033[1;34m-------------------------------\033[0m"
