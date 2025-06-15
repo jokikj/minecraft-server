@@ -96,7 +96,7 @@ All configuration files and world data are stored in:
 
 ## 🌐 Important notes
 
-✅ Ensure that your chosen port (`PORT` in the `.env`, default `25565M`) is opened on:  
+✅ Ensure that your chosen port (`PORT` in the `.env`, default `25565`) is opened on:  
 - your **UFW firewall**  
 - your **internet router / box** (port forwarding)
 
