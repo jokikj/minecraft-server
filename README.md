@@ -17,5 +17,5 @@ chmod +x install_minecraft.sh start_minecraft.sh
 
 Run the installation script:
 ```
-./install-minecraft.sh
+./install_minecraft.sh
 ```
