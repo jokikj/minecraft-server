@@ -71,15 +71,13 @@ Here are some useful commands to manage your Minecraft server:
   ```bash
   sudo -u mcadmin screen -r mc
   ```
-
-- **Stop the server cleanly (from the console)**
-  ```
-  /stop
-  ```
-
 - **Detach from the console without stopping the server**
   ```
   Ctrl + A, D
+  ```
+- **Stop the server cleanly (from the console)**
+  ```
+  /stop
   ```
 
 ---
