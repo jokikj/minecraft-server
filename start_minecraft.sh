@@ -53,7 +53,7 @@ CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d
 echo -e "\033[1;34m-------------------------------\033[0m"
 echo -e "\033[1;34mInformation sur le serveur :\033[0m"
 echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT}\033[0m"
-echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m \033[1;33m(Si le port est ouvert sur la box.)\033[0m"
+echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m \033[1;36m(Si le port est ouvert sur la box.)\033[0m"
 echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
 echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
 echo -e "\033[1;33m  sudo -u ${USER} screen -r mc \033[1;36m(pour rentrer dans la console du serveur minecraft)\033[0m"
