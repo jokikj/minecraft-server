@@ -60,9 +60,39 @@ echo -e "\033[1;34mLancement en cours du serveur veuillez patienter...\033[0m"
 
 sleep 20
 
-CONFIG_PATH="/home/${USER}/minecraftserver/server.properties"
-CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$CONFIG_PATH" | cut -d'=' -f2)
+# Chemin vers server.properties
+SERVER_PROPERTIES="/home/${USER}/minecraftserver/server.properties"
 
+# Lire le port actuel dans le fichier
+CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
+
+if [[ "$CONFIG_PORT" != "$PORT" ]]; then
+  echo -e "\033[1;33mLe port actuel est $CONFIG_PORT, arrêt du serveur et modification du port...\033[0m"
+
+  # Envoyer la commande /stop au serveur via screen
+  sudo -u ${USER} screen -S mc -p 0 -X stuff "/stop$(printf \\r)"
+
+  # Attendre que le serveur s'arrête proprement
+  sleep 10
+
+  # Modifier le port dans le fichier de config
+  sudo -u ${USER} sed -i "s/^server-port=.*/server-port=${PORT}/" "$SERVER_PROPERTIES"
+  echo -e "\033[1;32mPort changé avec succès dans $SERVER_PROPERTIES : server-port=${PORT}\033[0m"
+
+  # Lancer le serveur Minecraft avec l'utilisateur mcadmin dans un screen détaché
+  sudo -u ${USER} bash << EOF
+cd /home/${USER}/minecraftserver
+# Lancer dans un screen nommé 'mc' pour lancer le serveur Minecraft
+screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
+EOF
+else
+  echo -e "\033[1;34mLe port est déjà $CONFIG_PORT, aucune modification nécessaire.\033[0m"
+fi
+
+CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
+
+echo -e "\033[1;34m-------------------------------\033[0m"
+echo -e "\033[1;34mInformation sur le serveur :\033[0m"
 echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
