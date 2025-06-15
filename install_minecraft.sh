@@ -33,6 +33,11 @@ fi
 sudo mkdir -p /home/${USER}/minecraftserver
 sudo chown ${USER}:${USER} /home/${USER}/minecraftserver
 
+# Check if port is below 1024
+if [ "$PORT" -lt 1024 ]; then
+    echo -e "\033[1;31mWARNING: The selected port $PORT is below 1024. This may prevent the server from starting!\033[0m"
+fi
+
 # Download the Minecraft server as the created user
 sudo -u ${USER} bash << EOF
 cd /home/${USER}/minecraftserver
