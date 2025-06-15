@@ -8,9 +8,6 @@ else
     exit 1
 fi
 
-# Obtenir l'IP locale IPv4 uniquement
-IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
-
 # Chemin vers server.properties
 SERVER_PROPERTIES="/home/${USER}/minecraftserver/server.properties"
 
@@ -34,7 +31,6 @@ else
   # Lancer le serveur Minecraft avec l'utilisateur mcadmin dans un screen détaché
   sudo -u ${USER} bash << EOF
 cd /home/${USER}/minecraftserver
-
 # Lancer dans un screen nommé 'mc' pour lancer le serveur Minecraft
 screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
 EOF
@@ -43,9 +39,10 @@ EOF
   sleep 5
 fi
 
+# Obtenir l'IP locale IPv4 uniquement
+IP_LOCALE=$(hostname -I | tr ' ' '\n' | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n1)
 # Obtenir l'IP publique IPv4 uniquement
 IP_PUBLIQUE=$(curl -4 -s https://api64.ipify.org)
-
 # Obtenir le port dans le fichier de configuration
 CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d'=' -f2)
 
