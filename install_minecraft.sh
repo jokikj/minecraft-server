@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script d'installation du serveur Minecraft
-
+# Variable dand le fichier .env
 if [ -f .env ]; then
     export $(grep -v '^#' .env | xargs)
 else
@@ -20,9 +20,7 @@ sudo ufw allow ${PORT}
 sudo iptables -I INPUT -p tcp --dport ${PORT} -j ACCEPT
 
 # Créer utilisateur
-
 # Vérifier si l'utilisateur existe déjà
-
 if id "${USER}" &>/dev/null; then
   echo -e "\033[1;34mL'utilisateur ${USER} existe déjà.\033[0m"
 else
@@ -38,6 +36,11 @@ sudo chown ${USER}:${USER} /home/${USER}/minecraftserver
 # Télécharger le serveur Minecraft avec l'utilisateur
 sudo -u ${USER} bash << EOF
 cd /home/${USER}/minecraftserver
+
+# Suprimer le fichier server.jar sans avoir d'erreur si il existe déjà
+rf -f server.jar
+
+# Téléchargement du serveur Minecraft
 wget https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar
 
 # Accepter l'EULA
@@ -93,7 +96,7 @@ CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$SERVER_PROPERTIES" | cut -d
 
 echo -e "\033[1;34m-------------------------------\033[0m"
 echo -e "\033[1;34mInformation sur le serveur :\033[0m"
-echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT}\033[0m"
+echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT} (Si le port est ouvert sur la box.)\033[0m"
 echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
 echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
