@@ -31,6 +31,8 @@ sleep 5
 CONFIG_PATH="/home/${USER}/minecraftserver/server.properties"
 CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$CONFIG_PATH" | cut -d'=' -f2)
 
+echo -e "\033[1;34m-------------------------------\033[0m"
+echo -e "\033[1;34mInformation sur le serveur :\033[0m"
 echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
