@@ -82,11 +82,6 @@ Here are some useful commands to manage your Minecraft server:
   Ctrl + A, D
   ```
 
-- **Exit the console**
-  ```
-  Ctrl + D
-  ```
-
 ---
 
 ## 📂 Server files location
