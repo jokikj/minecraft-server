@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Variables
 if [ -f .env ]; then
     export $(grep -v '^#' .env | xargs)
 else
@@ -9,8 +8,8 @@ else
 fi
 
 # Lancer le serveur Minecraft avec l'utilisateur mcadmin dans un screen détaché
-sudo -u mcadmin bash << EOF
-cd /home/mcadmin/minecraftserver
+sudo -u ${USER} bash << EOF
+cd /home/${USER}/minecraftserver
 
 # Lancer dans un screen nommé 'mc' pour lancer le serveur Minecraft
 screen -dmS mc java -Xmx${RAM} -Xms${RAM} -jar server.jar nogui
@@ -29,14 +28,14 @@ echo -e "\033[1;34mLancement en cours du serveur veuillez patienter...\033[0m"
 
 sleep 5
 
-CONFIG_PATH="/home/mcadmin/minecraftserver/server.properties"
-CONFIG_PORT=$(sudo -u mcadmin grep "^server-port=" "$CONFIG_PATH" | cut -d'=' -f2)
+CONFIG_PATH="/home/${USER}/minecraftserver/server.properties"
+CONFIG_PORT=$(sudo -u ${USER} grep "^server-port=" "$CONFIG_PATH" | cut -d'=' -f2)
 
 echo -e "\033[1;34mAdresse IP locale :\033[0m \033[1;32m${IP_LOCALE}:${CONFIG_PORT}\033[0m"
 echo -e "\033[1;34mAdresse IP publique :\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_PORT}\033[0m"
-echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/mcadmin/minecraftserver\033[0m"
+echo -e "\033[1;34mEmplacement du dossier de configuration :\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
 echo -e "\033[1;34mCommandes pour gérer le serveur :\033[0m"
-echo -e "\033[1;33m  sudo -u mcadmin screen -r mc (pour rentrer dans la console du serveur minecraft)\033[0m"
+echo -e "\033[1;33m  sudo -u ${USER} screen -r mc (pour rentrer dans la console du serveur minecraft)\033[0m"
 echo -e "\033[1;33m  Ctrl + A, D (pour détacher la console)\033[0m"
 echo -e "\033[1;33m  /stop (pour arrêter le serveur)\033[0m"
 echo -e "\033[1;33m  Ctrl + D (pour quitter la console)\033[0m"
