@@ -24,11 +24,11 @@ sudo iptables -I INPUT -p tcp --dport ${PORT} -j ACCEPT
 # Vérifier si l'utilisateur existe déjà
 
 if id "${USER}" &>/dev/null; then
-  echo "\033[1;34mL'utilisateur ${USER} existe déjà.\033[0m"
+  echo -e "\033[1;34mL'utilisateur ${USER} existe déjà.\033[0m"
 else
   sudo adduser --gecos "" --disabled-password ${USER}
   echo "${USER}:${USER}" | sudo chpasswd
-  echo "\033[1;34mUtilisateur ${USER} créé avec succès.\033[0m"
+  echo -e "\033[1;34mUtilisateur ${USER} créé avec succès.\033[0m"
 fi
 
 # Créer le dossier du serveur Minecraft
