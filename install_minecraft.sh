@@ -96,5 +96,5 @@ echo -e "\033[1;34mPublic IP address:\033[0m \033[1;32m${IP_PUBLIQUE}:${CONFIG_P
 echo -e "\033[1;34mServer folder location:\033[0m \033[1;32m/home/${USER}/minecraftserver\033[0m"
 echo -e "\033[1;34mCommands to manage the server:\033[0m"
 echo -e "\033[1;33m  sudo -u ${USER} screen -r mc \033[1;36m(to access the server console)\033[0m"
-echo -e "\033[1;33m  /stop \033[1;36m(to stop the server)\033[0m"
 echo -e "\033[1;33m  Ctrl + A, D \033[1;36m(to detach the console)\033[0m"
+echo -e "\033[1;33m  /stop \033[1;36m(to stop the server)\033[0m"
